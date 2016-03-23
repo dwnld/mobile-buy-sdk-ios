@@ -1,6 +1,3 @@
-## Note for mm_NoPassKit branch:
-The only change here is an update to the podspec to leave out the PassKit framework. The podspec still points at the original Shopify repo, so no local code changes will be used unless the podspec is updated to make this repo the source.
-
 
 ![Mobile Buy SDK](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Mobile_Buy_SDK_Github_banner.png)
 
