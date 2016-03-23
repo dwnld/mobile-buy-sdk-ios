@@ -7,14 +7,23 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = 'Shopify Inc.'
   s.platform     = :ios, '8.0'
-  s.source       = { :git => 'https://github.com/Shopify/mobile-buy-sdk-ios.git', :tag => s.version }
+  s.source       = { :git => 'https://github.com/dwnld/mobile-buy-sdk-ios.git', :tag => s.version }
   s.source_files = 'Mobile Buy SDK/Mobile Buy SDK/**/*.{h,m,mm}'
   s.public_header_files = 'Mobile Buy SDK/Mobile Buy SDK/**/*.h'
-  s.exclude_files = 'Mobile Buy SDK/Mobile Buy SDK/Buy.h'
+  s.exclude_files = [
+    'Mobile Buy SDK/Mobile Buy SDK/Buy.h',
+    'Mobile Buy SDK/Mobile Buy SDK/BuyPaymentButton/**/*',
+    'Mobile Buy SDK/Mobile Buy SDK/Product View/**/*',
+    'Mobile Buy SDK/Mobile Buy SDK/View Controllers',
+    'Mobile Buy SDK/Mobile Buy SDK/Utils/BUYApplePayAdditions.{h,m}',
+    'Mobile Buy SDK/Mobile Buy SDK/Utils/BUYApplePayHelpers.{h,m}',
+    'Mobile Buy SDK/Mobile Buy SDK/Utils/BUYTheme+Additions.{h,m}'
+  ]
   s.module_name   = 'Buy'
   s.libraries    = 'c++'
   s.requires_arc = true
 
-#### Removing PassKit for now
-###  s.weak_frameworks   = 'PassKit'
+#### Removing PassKit for now -- These items need to be replaced if re-adding PassKit. Buy.h must also uncomment the commented-out lines
+#  s.frameworks   = 'PassKit'
+#  s.exclude_files = 'Mobile Buy SDK/Mobile Buy SDK/Buy.h',
 end
