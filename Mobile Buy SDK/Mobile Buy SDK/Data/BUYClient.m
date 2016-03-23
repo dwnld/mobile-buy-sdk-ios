@@ -40,10 +40,6 @@
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSURLComponents+BUYAdditions.h"
 
-#if __has_include(<PassKit/PassKit.h>)
-@import PassKit;
-#endif
-
 #define kGET @"GET"
 #define kPOST @"POST"
 #define kPATCH @"PATCH"
@@ -53,6 +49,10 @@
 #define kShopifyError @"shopify"
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
+
+
+// Note: Pass-Kit import used to be here
+
 
 NSString * const BUYVersionString = @"1.2.4";
 
@@ -448,30 +448,11 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 {
 	
 	NSURLSessionDataTask *task = nil;
-#if __has_include(<PassKit/PassKit.h>)
 	
-	if ([checkout hasToken] == NO) {
-		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-	}
-	else if (token == nil) {
-		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
-	}
-	else {
-		NSString *tokenString = [[NSString alloc] initWithData:token.paymentData encoding:NSUTF8StringEncoding];
-		NSDictionary *paymentJson = @{ @"payment_token" : @{ @"payment_data" : tokenString, @"type" : @"apple_pay" }};
-		NSError *error = nil;
-		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
-		if (data && error == nil) {
-			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
-		}
-		else {
-			block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-		}
-	}
+	// Note: Pass-Kit block used to be here.
 	
-#elif
 	block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
-#endif
+	
 	return task;
 }
 
